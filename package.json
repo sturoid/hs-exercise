@@ -4,19 +4,60 @@
   "description": "HubSpot Code Exercise",
   "main": "./build/index.js",
   "scripts": {
-    "dev": "parcel src/views/index.html --open --out-dir build",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prod": "parcel build src/index.html --out-dir build"
+    "dev": "parcel src/index.html --open --out-dir build",
+    "test": "npx jest",
+    "test:watch": "npx jest --watch",
+    "eslint": "npx eslint --fix ./src",
+    "prod": "parcel build src/index.html --out-dir build",
+    "packages:update": "ncu -u"
   },
-  "author": "HubSpot Applicant",
+  "author": "Stuart Clove",
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "parcel-bundler": "^1.12.3"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5"
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
+    "babel-eslint": "^10.0.3",
+    "browserslist": "^4.8.2",
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "husky": "^3.1.0",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.5.0",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1",
+    "react-test-renderer": "^16.12.0",
+    "sass": "^1.23.7",
+    "styled-jsx": "^3.2.4"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-commit": "git update-index -g"
+    }
   }
 }
