@@ -1,6 +1,14 @@
+:root {
+  --white: RGBA(255, 255, 255, 1);
+  --tan: #f9f8f7;
+  --orange: #ff6b01;
+  --blue: #00a2e0;
+  --text: #877873;
+}
+
 body {
   margin: 0;
-  font-family: 'Roboto', 'Montserrat', sans-serif;
+  font-family: 'Montserrat', 'Roboto Slab', sans-serif;
 }
 
 .exercise-header {
@@ -12,34 +20,54 @@ body {
 }
 
 body > div:nth-child(2) {
+  background: var(--tan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-width: 100%;
+  height: 100%;
+  padding: 2.5rem 0;
   margin: 0 auto;
-  width: 700px;
 
   a {
+    color: var(--white);
     border-radius: 5px;
     font-size: 0.6rem;
     text-align: center;
-    background: blue;
+    background: var(--blue);
     display: block;
     width: 100%;
     max-width: 150px;
-    padding: 1.2rem 0;
-    margin: 0 0 0 20px;
+    padding: 1.1rem 0;
+    margin: 0 0 0 2rem;
     text-transform: uppercase;
     font-weight: bold;
   }
 
   > div {
+    color: var(--text);
     align-items: center;
-    border-left: 2px solid orange;
+    border-left: 2px solid var(--orange);
     display: flex;
     padding-left: 1rem;
     position: relative;
+    max-width: 600px;
+
+    p {
+      font-family: 'Roboto Slab';
+      font-size: 0.9rem;
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    span {
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
 
     &:before,
     &:after {
-      background: orange;
+      background: var(--orange);
       position: absolute;
       bottom: -6px;
       left: -6px;
@@ -54,13 +82,14 @@ body > div:nth-child(2) {
     }
 
     &:after {
-      color: 'white';
-      content: '"';
-      display: flex;
+      color: var(--white);
+      content: '\201C';
+      font-size: 40px;
+      text-align: center;
       top: -5px;
-      left: -11px;
-      height: 20px;
-      width: 20px;
+      left: -14px;
+      height: 25px;
+      width: 25px;
     }
   }
 
