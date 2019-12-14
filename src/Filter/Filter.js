@@ -1,14 +1,134 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Fuse from 'fuse.js';
 import { typeMedia, typeArrayOf, typeString } from '../lib/prop-types';
-import { Grid, Button } from '../shared';
+import { Wrapper, Grid, Button, SelectMulti } from '../shared';
 import { arrayToUpperCase } from './Filter.utils';
+import './Filter.scss';
+
+function filterData(data, selectedType, selectedYears, selectedGenres, searchString) {
+  if (!selectedType && !selectedYears.length && !selectedGenres.length && !searchString)
+    return data;
+  let newData = data;
+
+  if (selectedType) {
+    newData = newData.filter(({ type }) => {
+      return type === selectedType;
+    });
+  }
+
+  if (selectedYears.length) {
+    newData = newData.filter(({ year }) => {
+      return selectedYears.includes(year);
+    });
+  }
+
+  if (selectedGenres.length) {
+    newData = newData.filter(({ genre }) => {
+      return selectedGenres.some(selected => genre.includes(selected));
+    });
+  }
+
+  if (searchString) {
+    const fuse = new Fuse(newData, { keys: ['title'] });
+    newData = fuse.search(searchString);
+  }
+
+  return newData;
+}
 
 const Filter = ({ data, years, genres }) => {
+  const [filteredData, setFilterData] = useState(data);
+  const [selectedType, setSelectedType] = useState(null);
+  const [selectedYears, setSelectedYears] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [searchString, setSearchString] = useState(null);
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    const newData = filterData(
+      data,
+      selectedType,
+      selectedYears,
+      selectedGenres,
+      searchString
+    );
+    setFilterData(newData);
+  }, [selectedType, selectedYears, selectedGenres, searchString]);
+
+  function filterType({ target: { value } }) {
+    setSelectedType(value.toLowerCase().substr(0, value.length - 1));
+  }
+
+  function filterYears(yearsFromSelect) {
+    setSelectedYears(yearsFromSelect);
+  }
+
+  function filterGenres(genresFromSelect) {
+    setSelectedGenres(genresFromSelect.map(g => g.toLowerCase()));
+  }
+
+  function filterTitle({ target: { value } }) {
+    setSearchString(value);
+  }
+
+  function clearFilters() {
+    setFilterData(data);
+    setSelectedType(null);
+    setSelectedYears([]);
+    setSelectedGenres([]);
+    setSearchString(null);
+    searchRef.current.value = '';
+  }
+
   return (
-    <section>
-      <FilterHead years={years} genres={genres} />
-      <FilterContent data={data} />
-    </section>
+    <Wrapper>
+      <div className="filter-head">
+        <Grid.Row>
+          <Grid.Left>
+            <SelectMulti options={years} callback={filterYears} />
+            <SelectMulti options={genres} callback={filterGenres} />
+          </Grid.Left>
+
+          <Grid.Right>
+            <input type="search" ref={searchRef} onChange={filterTitle} />
+          </Grid.Right>
+        </Grid.Row>
+
+        <Grid.Row>
+          <Grid.Left>
+            <div className="left">
+              <label htmlFor="type">
+                <input type="radio" name="type" value="Movies" onChange={filterType} />
+                Movies
+              </label>
+              <label htmlFor="type">
+                <input type="radio" name="type" value="Books" onChange={filterType} />
+                Books
+              </label>
+            </div>
+          </Grid.Left>
+          <Grid.Right>
+            <div className="right">
+              <Button asLink onClick={clearFilters}>
+                Clear Filters
+              </Button>
+            </div>
+          </Grid.Right>
+        </Grid.Row>
+      </div>
+
+      <div className="filter-content">
+        {filteredData.map(d => {
+          return (
+            <div key={d.title} className="filter-item">
+              <img className="poster" src={d.poster} alt="poster" />
+              <div className="title">{`${d.title} (${d.year})`}</div>
+              <div className="genre-list">{arrayToUpperCase(d.genre).join(', ')}</div>
+            </div>
+          );
+        })}
+      </div>
+    </Wrapper>
   );
 };
 
@@ -18,96 +138,4 @@ Filter.propTypes = {
   genres: typeArrayOf(typeString).isRequired
 };
 
-const FilterHead = ({ years, genres }) => {
-  return (
-    <div className="filter-head">
-      <Grid.Row>
-        <Grid.Left>
-          <select>
-            {years.map(year => {
-              return (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              );
-            })}
-          </select>
-          <select>
-            {genres.map(genre => {
-              return (
-                <option key={genre} value={genre}>
-                  {genre}
-                </option>
-              );
-            })}
-          </select>
-        </Grid.Left>
-
-        <Grid.Right>
-          <input type="search" />
-        </Grid.Right>
-      </Grid.Row>
-
-      <Grid.Row>
-        <Grid.Left>
-          <div className="left">
-            <label htmlFor="type">
-              <input type="radio" name="type" value="Movies" />
-              Movies
-            </label>
-            <label htmlFor="type">
-              <input type="radio" name="type" value="Books" />
-              Books
-            </label>
-          </div>
-        </Grid.Left>
-        <Grid.Right>
-          <div className="right">
-            <Button asLink onClick={() => null}>
-              Clear Filters
-            </Button>
-          </div>
-        </Grid.Right>
-      </Grid.Row>
-    </div>
-  );
-};
-
-FilterHead.propTypes = {
-  years: typeArrayOf(typeString).isRequired,
-  genres: typeArrayOf(typeString).isRequired
-};
-
-const FilterContent = ({ data }) => {
-  return (
-    <div className="filter-content">
-      {data.map(d => {
-        return (
-          <div key={d.title} className="filter-item">
-            <img className="poster" src={d.poster} alt="poster" />
-            <div className="title">{`${d.title} (${d.year})`}</div>
-            <div className="genre-list">{arrayToUpperCase(d.genre).join(', ')}</div>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
-
-FilterContent.propTypes = {
-  data: typeMedia.isRequired
-};
-
 export default Filter;
-
-// {
-//   "title": "The Other Guys",
-//   "year": "2010",
-//   "poster": "https://ia.media-imdb.com/images/M/MV5BMTc0NDQzNTA2Ml5BMl5BanBnXkFtZTcwNzI2OTQzMw@@._V1_.jpg",
-//   "genre": [
-//     "action",
-//     "comedy",
-//     "crime"
-//   ],
-//   "type": "movie"
-// },

@@ -17,6 +17,7 @@ const FilterData = () => {
     fetchData();
   }, []);
 
+  if (!data.length) return null;
   const dataSorted = data.sort((a, b) => (a.title > b.title ? 1 : -1));
   const years = getYears(data);
   const genres = getGenres(data);

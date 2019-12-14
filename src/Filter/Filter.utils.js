@@ -14,7 +14,7 @@ export function arrayToUpperCase(arr) {
 /**
  * @param {array} data - data array of media objects from API.
  * @return {array} array of unique and sorted years.
- * > const data = [{year: '1'}, {year: '2}, {year: '3'}];
+ * > const data = [{year: '1'}, {year: '2'}, {year: '3'}];
  * > getYears(arr);
  * > ['1', '2', '3'];
  */

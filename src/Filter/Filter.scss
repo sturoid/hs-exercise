@@ -1,0 +1,41 @@
+@import '../lib//variables.scss', '../lib/breakpoints.scss';
+
+.filter-content {
+  color: $grey800;
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px;
+
+  .filter-item {
+    box-sizing: border-box;
+    margin: 15px;
+
+    @include md {
+      width: calc(50% - 30px);
+    }
+
+    @include lg {
+      width: calc(33% - 30px);
+    }
+
+    .poster {
+      max-height: 500px;
+
+      @include lg {
+        height: 500px;
+      }
+
+      width: 100%;
+    }
+
+    .title {
+      font-weight: bold;
+      padding: 10px 0;
+    }
+
+    .genre-list {
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+  }
+}

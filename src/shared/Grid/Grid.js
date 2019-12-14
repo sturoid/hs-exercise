@@ -1,5 +1,6 @@
 import React from 'react';
 import { typeChildren } from '../../lib/prop-types';
+import './Grid.scss';
 
 const Row = ({ children }) => {
   return <div className="row">{children}</div>;
