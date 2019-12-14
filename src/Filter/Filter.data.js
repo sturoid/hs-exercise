@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { getYears, getGenres } from './Filter.utils';
 import Filter from './Filter';
-
-function getYears(data) {
-  return data.map(d => {
-    return d.year;
-  })
-}
 
 const FilterData = () => {
   const [data, setData] = useState([]);
@@ -23,7 +18,9 @@ const FilterData = () => {
   }, []);
 
   const dataSorted = data.sort((a, b) => (a.title > b.title ? 1 : -1));
-  return <Filter data={dataSorted} genres={getGenres(data)} years={getYears(data)} />;
+  const years = getYears(data);
+  const genres = getGenres(data);
+  return <Filter data={dataSorted} genres={genres} years={years} />;
 };
 
 export default FilterData;

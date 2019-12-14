@@ -1,30 +1,45 @@
 import React from 'react';
-import { typeMedia } from '../lib/prop-types';
+import { typeMedia, typeArrayOf, typeString } from '../lib/prop-types';
 import { Grid, Button } from '../shared';
+import { arrayToUpperCase } from './Filter.utils';
 
-const Filter = ({ data }) => {
+const Filter = ({ data, years, genres }) => {
   return (
     <section>
-      <FilterHead />
+      <FilterHead years={years} genres={genres} />
       <FilterContent data={data} />
     </section>
   );
 };
 
 Filter.propTypes = {
-  data: typeMedia.isRequired
+  data: typeMedia.isRequired,
+  years: typeArrayOf(typeString).isRequired,
+  genres: typeArrayOf(typeString).isRequired
 };
 
-const FilterHead = () => {
+const FilterHead = ({ years, genres }) => {
   return (
     <div className="filter-head">
       <Grid.Row>
         <Grid.Left>
           <select>
-            <option value="Action">Action</option>
+            {years.map(year => {
+              return (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              );
+            })}
           </select>
           <select>
-            <option value="2010">2010</option>
+            {genres.map(genre => {
+              return (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              );
+            })}
           </select>
         </Grid.Left>
 
@@ -58,19 +73,20 @@ const FilterHead = () => {
   );
 };
 
-const FilterContent = ({ data, years, genres }) => {
+FilterHead.propTypes = {
+  years: typeArrayOf(typeString).isRequired,
+  genres: typeArrayOf(typeString).isRequired
+};
+
+const FilterContent = ({ data }) => {
   return (
     <div className="filter-content">
       {data.map(d => {
         return (
-          <div className="filter-item">
+          <div key={d.title} className="filter-item">
             <img className="poster" src={d.poster} alt="poster" />
             <div className="title">{`${d.title} (${d.year})`}</div>
-            <div className="genre-list">
-              {d.genre
-                .map(string => string[0].toUpperCase() + string.slice(1))
-                .join(', ')}
-            </div>
+            <div className="genre-list">{arrayToUpperCase(d.genre).join(', ')}</div>
           </div>
         );
       })}
