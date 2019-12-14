@@ -1,7 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filter renders 1`] = `
-<div>
-  Filter here
-</div>
+<section>
+  <div>
+    <div>
+      <select>
+        <option
+          value="Action"
+        >
+          Action
+        </option>
+      </select>
+      <select>
+        <option
+          value="2010"
+        >
+          2010
+        </option>
+      </select>
+      <input
+        type="search"
+      />
+    </div>
+    <div>
+      <div
+        className="left"
+      >
+        <input
+          name="type"
+          type="radio"
+          value="Movies"
+        />
+        <input
+          name="type"
+          type="radio"
+          value="Books"
+        />
+      </div>
+      <div
+        className="right"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          Clear Filters
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 `;

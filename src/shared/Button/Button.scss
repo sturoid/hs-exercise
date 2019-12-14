@@ -1,0 +1,27 @@
+@import '../../lib//variables.scss';
+
+.btn {
+  border: 1px solid #e6e7e8;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.primary {
+  border-color: $primary;
+  background: $primary;
+  color: $white;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.as-link {
+  color: $blue;
+  background: none;
+  border: none;
+  border-bottom: 1px solid $primary;
+  padding: 0;
+}
