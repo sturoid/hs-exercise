@@ -77,6 +77,7 @@ const Filter = ({ data, years, genres }) => {
     setSelectedYears([]);
     setSelectedGenres([]);
     setSearchString(null);
+    setSelectedType(null);
     searchRef.current.value = '';
   }
 
@@ -85,12 +86,20 @@ const Filter = ({ data, years, genres }) => {
       <div className="filter-head">
         <Grid.Row>
           <Grid.Left>
-            <SelectMulti options={years} callback={filterYears} />
-            <SelectMulti options={genres} callback={filterGenres} />
+            <SelectMulti
+              options={years}
+              callback={filterYears}
+              reset={!selectedYears.length}
+            />
+            <SelectMulti
+              options={genres}
+              callback={filterGenres}
+              reset={!selectedGenres.length}
+            />
           </Grid.Left>
 
           <Grid.Right>
-            <input type="search" ref={searchRef} onChange={filterTitle} />
+            <input type="search" name="search" ref={searchRef} onChange={filterTitle} />
           </Grid.Right>
         </Grid.Row>
 
@@ -98,11 +107,23 @@ const Filter = ({ data, years, genres }) => {
           <Grid.Left>
             <div className="left">
               <label htmlFor="type">
-                <input type="radio" name="type" value="Movies" onChange={filterType} />
+                <input
+                  type="radio"
+                  name="type"
+                  checked={selectedType === 'movie'}
+                  value="Movies"
+                  onChange={filterType}
+                />
                 Movies
               </label>
               <label htmlFor="type">
-                <input type="radio" name="type" value="Books" onChange={filterType} />
+                <input
+                  type="radio"
+                  name="type"
+                  checked={selectedType === 'book'}
+                  value="Books"
+                  onChange={filterType}
+                />
                 Books
               </label>
             </div>

@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiCircle, FiCheckCircle, FiChevronDown } from 'react-icons/fi';
-import { typeArrayOf, typeString, typeFunc } from '../../lib/prop-types';
+import { typeArrayOf, typeString, typeFunc, typeBool } from '../../lib/prop-types';
 import './SelectMulti.scss';
 
-const SelectMulti = ({ options, placeholder, callback }) => {
+const SelectMulti = ({ options, placeholder, callback, reset }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState([]);
+
+  useEffect(() => {
+    if (reset) {
+      setSelected([]);
+      setOpen(false);
+    }
+  }, [reset]);
 
   function onClick(option) {
     const newSelected = [...selected];
@@ -62,13 +69,15 @@ const SelectMulti = ({ options, placeholder, callback }) => {
 SelectMulti.defaultProps = {
   options: [],
   placeholder: null,
-  callback: null
+  callback: null,
+  reset: false
 };
 
 SelectMulti.propTypes = {
   options: typeArrayOf(typeString),
   placeholder: typeString,
-  callback: typeFunc
+  callback: typeFunc,
+  reset: typeBool
 };
 
 export default SelectMulti;
