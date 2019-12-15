@@ -39,17 +39,12 @@ export function getGenres(data) {
 
 export function filterData(
   data,
-  selectedType = '',
+  selectedType = null,
   selectedYears = [],
   selectedGenres = [],
-  searchString = ''
+  searchString = null
 ) {
-  if (
-    !selectedType.length &&
-    !selectedYears.length &&
-    !selectedGenres.length &&
-    !searchString.length
-  ) {
+  if (!selectedType && !selectedYears.length && !selectedGenres.length && !searchString) {
     return data;
   }
 
