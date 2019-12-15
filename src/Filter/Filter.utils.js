@@ -1,4 +1,5 @@
 import uniq from 'lodash.uniq';
+import Fuse from 'fuse.js';
 
 /**
  * @param {array} arr - array of strings.
@@ -34,6 +35,50 @@ export function getGenres(data) {
   const genres = uniq(data.flatMap(d => d.genre));
   const genresSorted = genres.sort((a, b) => (a > b ? 1 : -1));
   return arrayToUpperCase(genresSorted);
+}
+
+export function filterData(
+  data,
+  selectedType = '',
+  selectedYears = [],
+  selectedGenres = [],
+  searchString = ''
+) {
+  if (
+    !selectedType.length &&
+    !selectedYears.length &&
+    !selectedGenres.length &&
+    !searchString.length
+  ) {
+    return data;
+  }
+
+  let newData = data;
+
+  if (selectedType) {
+    newData = newData.filter(({ type }) => {
+      return type === selectedType;
+    });
+  }
+
+  if (selectedYears.length) {
+    newData = newData.filter(({ year }) => {
+      return selectedYears.includes(year);
+    });
+  }
+
+  if (selectedGenres.length) {
+    newData = newData.filter(({ genre }) => {
+      return selectedGenres.some(selected => genre.includes(selected));
+    });
+  }
+
+  if (searchString) {
+    const fuse = new Fuse(newData, { keys: ['title'] });
+    newData = fuse.search(searchString);
+  }
+
+  return newData;
 }
 
 export default arrayToUpperCase;

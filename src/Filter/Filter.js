@@ -1,40 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Fuse from 'fuse.js';
 import { typeMedia, typeArrayOf, typeString } from '../lib/prop-types';
 import { Wrapper, Grid, Button, Radio, SelectMulti, Search } from '../shared';
-import { arrayToUpperCase } from './Filter.utils';
+import { arrayToUpperCase, filterData } from './Filter.utils';
 import './Filter.scss';
-
-function filterData(data, selectedType, selectedYears, selectedGenres, searchString) {
-  if (!selectedType && !selectedYears.length && !selectedGenres.length && !searchString)
-    return data;
-  let newData = data;
-
-  if (selectedType) {
-    newData = newData.filter(({ type }) => {
-      return type === selectedType;
-    });
-  }
-
-  if (selectedYears.length) {
-    newData = newData.filter(({ year }) => {
-      return selectedYears.includes(year);
-    });
-  }
-
-  if (selectedGenres.length) {
-    newData = newData.filter(({ genre }) => {
-      return selectedGenres.some(selected => genre.includes(selected));
-    });
-  }
-
-  if (searchString) {
-    const fuse = new Fuse(newData, { keys: ['title'] });
-    newData = fuse.search(searchString);
-  }
-
-  return newData;
-}
 
 const Filter = ({ data, years, genres }) => {
   const [filteredData, setFilterData] = useState(data);
