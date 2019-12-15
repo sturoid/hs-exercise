@@ -8,8 +8,18 @@
 
 .row-left {
   display: flex;
+  align-items: center;
+
+  > div:not(:first-child) {
+    padding-left: 20px;
+  }
 }
 
 .right-right {
   display: flex;
+  align-items: center;
+
+  > div:not(:last-child) {
+    padding-right: 20px;
+  }
 }

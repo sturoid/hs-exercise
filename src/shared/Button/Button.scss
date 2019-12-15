@@ -3,6 +3,7 @@
 .btn {
   border: 1px solid #e6e7e8;
   font-weight: bold;
+  outline: 0;
   &:hover {
     cursor: pointer;
   }
@@ -20,6 +21,7 @@
 
 .as-link {
   color: $blue;
+  font-size: 0.8rem;
   background: none;
   border: none;
   border-bottom: 1px solid $primary;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Fuse from 'fuse.js';
 import { typeMedia, typeArrayOf, typeString } from '../lib/prop-types';
-import { Wrapper, Grid, Button, SelectMulti } from '../shared';
+import { Wrapper, Grid, Button, Radio, SelectMulti, Search } from '../shared';
 import { arrayToUpperCase } from './Filter.utils';
 import './Filter.scss';
 
@@ -56,7 +56,7 @@ const Filter = ({ data, years, genres }) => {
   }, [selectedType, selectedYears, selectedGenres, searchString]);
 
   function filterType({ target: { value } }) {
-    setSelectedType(value.toLowerCase().substr(0, value.length - 1));
+    setSelectedType(value);
   }
 
   function filterYears(yearsFromSelect) {
@@ -83,71 +83,66 @@ const Filter = ({ data, years, genres }) => {
 
   return (
     <Wrapper>
-      <div className="filter-head">
-        <Grid.Row>
-          <Grid.Left>
-            <SelectMulti
-              options={years}
-              callback={filterYears}
-              reset={!selectedYears.length}
-            />
-            <SelectMulti
-              options={genres}
-              callback={filterGenres}
-              reset={!selectedGenres.length}
-            />
-          </Grid.Left>
+      <div className="filter">
+        <div className="filter-head">
+          <Grid.Row>
+            <Grid.Left>
+              <SelectMulti
+                options={years}
+                placeholder="Genre"
+                callback={filterYears}
+                reset={!selectedYears.length}
+              />
+              <SelectMulti
+                options={genres}
+                placeholder="Year"
+                callback={filterGenres}
+                reset={!selectedGenres.length}
+              />
+            </Grid.Left>
 
-          <Grid.Right>
-            <input type="search" name="search" ref={searchRef} onChange={filterTitle} />
-          </Grid.Right>
-        </Grid.Row>
+            <Grid.Right>
+              <Search fieldRef={searchRef} onChange={filterTitle} />
+            </Grid.Right>
+          </Grid.Row>
 
-        <Grid.Row>
-          <Grid.Left>
-            <div className="left">
-              <label htmlFor="type">
-                <input
-                  type="radio"
-                  name="type"
-                  checked={selectedType === 'movie'}
-                  value="Movies"
-                  onChange={filterType}
-                />
-                Movies
-              </label>
-              <label htmlFor="type">
-                <input
-                  type="radio"
-                  name="type"
-                  checked={selectedType === 'book'}
-                  value="Books"
-                  onChange={filterType}
-                />
-                Books
-              </label>
-            </div>
-          </Grid.Left>
-          <Grid.Right>
-            <div className="right">
+          <Grid.Row>
+            <Grid.Left>
+              <Radio
+                name="type"
+                checked={selectedType === 'movie'}
+                value="movie"
+                label="Movies"
+                onChange={filterType}
+              />
+
+              <Radio
+                name="type"
+                checked={selectedType === 'book'}
+                value="book"
+                label="Books"
+                onChange={filterType}
+              />
+            </Grid.Left>
+            <Grid.Right>
               <Button asLink onClick={clearFilters}>
                 Clear Filters
               </Button>
-            </div>
-          </Grid.Right>
-        </Grid.Row>
-      </div>
+            </Grid.Right>
+          </Grid.Row>
+        </div>
 
-      <div className="filter-content">
-        {filteredData.map(d => {
-          return (
-            <div key={d.title} className="filter-item">
-              <img className="poster" src={d.poster} alt="poster" />
-              <div className="title">{`${d.title} (${d.year})`}</div>
-              <div className="genre-list">{arrayToUpperCase(d.genre).join(', ')}</div>
-            </div>
-          );
-        })}
+        <div className="filter-content">
+          {filteredData.map(d => {
+            return (
+              <div key={d.title} className="filter-item">
+                <img className="poster" src={d.poster} alt="poster" />
+                <div className="title">{`${d.title} (${d.year})`}</div>
+                <div className="genre-list">{arrayToUpperCase(d.genre).join(', ')}</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </Wrapper>
   );

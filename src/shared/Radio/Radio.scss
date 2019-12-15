@@ -1,0 +1,17 @@
+@import '../../lib/variables.scss';
+
+.radio {
+  label {
+    color: $grey700;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  input {
+    margin-right: 8px;
+  }
+}

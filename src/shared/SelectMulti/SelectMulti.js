@@ -14,7 +14,7 @@ const SelectMulti = ({ options, placeholder, callback, reset }) => {
     }
   }, [reset]);
 
-  function onClick(option) {
+  function onClickOption(option) {
     const newSelected = [...selected];
     const alreadySelected = selected.findIndex(s => s === option);
 
@@ -42,14 +42,14 @@ const SelectMulti = ({ options, placeholder, callback, reset }) => {
         </div>
       </div>
       {!!open && (
-        <div className="options">
+        <div className="options animated animatedFadeInUp fadeInUp">
           {options.map(option => {
             return (
               <div
                 key={option}
                 className="option"
-                onClick={() => onClick(option)}
-                onKeyDown={() => onClick(option)}
+                onClick={() => onClickOption(option)}
+                onKeyDown={() => onClickOption(option)}
                 role="button"
                 tabIndex="0"
               >
