@@ -1,10 +1,11 @@
 @import '../../lib/breakpoints.scss';
 
 .wrapper {
+  box-sizing: border-box;
   width: 1200px;
   margin: 0 auto;
   max-width: 100%;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
 
   @include sm {
     padding: 0;

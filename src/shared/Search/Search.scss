@@ -6,12 +6,15 @@
   align-items: center;
   padding: 7px 5px;
   min-width: 200px;
+  width: 80%;
+
   input {
     height: 100%;
     width: 100%;
     outline: none;
     border: none;
   }
+
   .icon {
     height: 100%;
     color: $grey500;
