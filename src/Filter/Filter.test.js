@@ -78,28 +78,14 @@ describe('Filter.utils', () => {
   });
 
   describe('#filterData', () => {
-    it('filters by type', () => {
-      // data,
-      // selectedType,
-      // selectedYears,
-      // selectedGenres,
-      // searchString
-
-      expect(filterData(data, 'movie', [], [], '')).toMatchSnapshot();
-      expect(filterData(data, 'book', [], [], '')).toMatchSnapshot();
-      expect(filterData(data, '', [], [], '')).toMatchSnapshot();
-    });
-
     it('filters by year', () => {
       expect(filterData(data, '', ['1981'], [], '')).toMatchSnapshot();
       expect(filterData(data, '', ['1981', '2010'], [], '')).toMatchSnapshot();
-      expect(filterData(data, '', [], [], '')).toMatchSnapshot();
     });
 
     it('filters by genre', () => {
       expect(filterData(data, '', [], ['action'], '')).toMatchSnapshot();
       expect(filterData(data, '', [], ['action', 'comedy'], '')).toMatchSnapshot();
-      expect(filterData(data, '', [], [], '')).toMatchSnapshot();
     });
 
     it('filters by search string', () => {
