@@ -56,16 +56,16 @@ const Filter = ({ data, years, genres }) => {
           <Grid.Row>
             <Grid.Left>
               <SelectMulti
-                options={years}
-                placeholder="Genre"
-                callback={filterYears}
-                reset={!selectedYears.length}
-              />
-              <SelectMulti
                 options={genres}
-                placeholder="Year"
+                placeholder="Genre"
                 callback={filterGenres}
                 reset={!selectedGenres.length}
+              />
+              <SelectMulti
+                options={years}
+                placeholder="Year"
+                callback={filterYears}
+                reset={!selectedYears.length}
               />
             </Grid.Left>
 
