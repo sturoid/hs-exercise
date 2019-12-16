@@ -16,6 +16,7 @@
   "plugins": ["react-hooks", "prettier"],
   "rules": {
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "jsx-a11y/click-events-have-key-events": 0,
     "prettier/prettier": "error",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react-hooks/rules-of-hooks": "error"

@@ -1,0 +1,35 @@
+@import '../../lib/breakpoints.scss';
+
+.row {
+  width: 100%;
+  padding: 10px;
+
+  @include md {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.row-left {
+  display: flex;
+  align-items: center;
+
+  > div:not(:first-child) {
+    padding-left: 20px;
+  }
+}
+
+.row-right {
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+
+  > div:not(:last-child) {
+    padding-right: 20px;
+  }
+
+  @include md {
+    padding-top: 0;
+  }
+}

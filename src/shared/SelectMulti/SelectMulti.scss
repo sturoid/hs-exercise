@@ -1,0 +1,115 @@
+@import '../../lib//variables.scss';
+
+.select-multi {
+  min-width: 150px;
+  max-width: 200px;
+  color: $grey600;
+  position: relative;
+
+  .placeholder {
+    background: $grey100;
+    border-bottom: 4px solid $grey300;
+    padding: 7px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    outline: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .text {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    .icon {
+      font-size: 1.2rem;
+    }
+  }
+
+  .options {
+    background: $white;
+    position: absolute;
+    top: 10px;
+    min-width: 150px;
+    max-width: 100%;
+    max-height: 400px;
+    overflow-y: scroll;
+    margin-top: 40px;
+
+    .option:last-child {
+      border-right: 1px solid $grey300;
+      border-bottom: 1px solid $grey300;
+      border-left: 1px solid $grey300;
+    }
+
+    .option {
+      border-top: 1px solid $grey300;
+      border-right: 1px solid $grey300;
+      border-left: 1px solid $grey300;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 10px 5px;
+      outline: none;
+      &:hover {
+        color: $blue;
+        cursor: pointer;
+      }
+      .icon {
+        padding-right: 5px;
+        height: 100%;
+        font-size: 0.8rem;
+      }
+
+      .text {
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.animated {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+  -webkit-animation-duration: 0.3s;
+  -webkit-animation-fill-mode: both;
+}
+
+.animatedFadeInUp {
+  opacity: 0;
+}
+
+.fadeInUp {
+  opacity: 0;
+  animation-name: fadeInUp;
+  -webkit-animation-name: fadeInUp;
+}

@@ -1,0 +1,52 @@
+@import '../lib//variables.scss', '../lib/breakpoints.scss';
+
+.filter {
+  border: 1px solid $grey300;
+}
+
+.filter-head {
+  border-bottom: 1px solid $grey300;
+  padding: 10px 20px;
+}
+
+.filter-content {
+  color: $grey800;
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px;
+  padding: 15px;
+
+  .filter-item {
+    box-sizing: border-box;
+    margin: 15px;
+    width: 100%;
+
+    @include sm {
+      width: calc(50% - 30px);
+    }
+
+    @include lg {
+      width: calc(33% - 26px);
+    }
+
+    .poster {
+      max-height: 500px;
+      width: 100%;
+      background-size: cover;
+
+      @include lg {
+        height: 500px;
+      }
+    }
+
+    .title {
+      font-weight: bold;
+      padding: 10px 0;
+    }
+
+    .genre-list {
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+  }
+}
