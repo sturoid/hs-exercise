@@ -37,6 +37,14 @@ export function getGenres(data) {
   return arrayToUpperCase(genresSorted);
 }
 
+/**
+ * @param {data} array - array of media objects from api.
+ * @param {selectedType} string - type of media (book, movie).
+ * @param {selectedYears} array - array of year strings.
+ * @param {selectedGenres} array - array of genre strings.
+ * @param {searchString} string - string from search input.
+ * @return {array} filtered array of media objects based on passed in criteria.
+ */
 export function filterData(
   data,
   selectedType = null,
