@@ -79,27 +79,21 @@ describe('Filter.utils', () => {
 
   describe('#filterData', () => {
     it('filters by year', () => {
-      expect(filterData(data, '', ['1981'], [], '')).toMatchSnapshot();
       expect(filterData(data, '', ['1981', '2010'], [], '')).toMatchSnapshot();
     });
 
     it('filters by genre', () => {
-      expect(filterData(data, '', [], ['action'], '')).toMatchSnapshot();
       expect(filterData(data, '', [], ['action', 'comedy'], '')).toMatchSnapshot();
     });
 
     it('filters by search string', () => {
       expect(filterData(data, '', [], [], 'raiders')).toMatchSnapshot();
       expect(filterData(data, '', [], [], 'terminator')).toMatchSnapshot();
-      expect(filterData(data, '', [], [], 'robo cop')).toMatchSnapshot();
     });
 
     it('filters multiple', () => {
       expect(filterData(data, 'movie', ['1991'], ['sci-fi'], 't')).toMatchSnapshot();
-      expect(
-        filterData(data, 'movie', ['2015'], ['comedy', 'horror'], '')
-      ).toMatchSnapshot();
-      expect(filterData(data, 'book', [], ['action'], 'robo cop')).toMatchSnapshot();
+      expect(filterData(data, 'book', [], [], 'game of')).toMatchSnapshot();
     });
   });
 });
