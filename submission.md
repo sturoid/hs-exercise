@@ -12,4 +12,4 @@ I don't think I did that I can remember.
 
 ## Is there anything else you'd like to let us know?
 
-I had fun doing it and thank you for the opportunity :). 
+On exercise 1, normally I would have added classes and such to the html elements, but it said not to alter the html so I didn't. I asked about it but never got a response. I just targeted the elements directly but it's not very modular.
