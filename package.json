@@ -15,7 +15,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "fuse.js": "^3.4.6",
     "lodash.uniq": "^4.5.0",
     "prop-types": "^15.7.2",
